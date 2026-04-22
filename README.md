@@ -349,3 +349,117 @@ push "Установить Metamask", выбрать браузер
 ![alt text](image-5.png)
 
 
+## Create and compile contract
+
+`contracts/itContract.sol`
+
+```bash
+npx hardhat compile
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> contracts/itContract.sol
+
+
+Compiled 1 Solidity file successfully (evm target: paris).
+```
+
+Edit file `ignition/modules/Lock.js` and deploy:
+```bash
+npx hardhat ignition deploy ./ingnition/modules/Lock.js --network hardhat
+
+```
+
+
+```bash
+npm install @openzeppelin/contracts
+```
+
+Create new contract `contracts/Proger.sol`, create new lock file `ignition/modules/ProgerLock.js` 
+
+```bash
+npx hardhat compile
+npx hardhat node
+```
+In other console
+```bash
+npx hardhat ignition deploy ./ignition/modules/ProgerLock.js --network localhost
+
+Hardhat Ignition 🚀
+
+Deploying [ ItModule ]
+
+Batch #1
+  Executed ItModule#Proger
+
+[ ItModule ] successfully deployed 🚀
+
+Deployed Addresses
+
+ItModule#Proger - 0x5FbDB2315678afecb367f032d93F642f64180aa3
+
+npx hardhat console --network localhost
+Welcome to Node.js v24.14.1.
+Type ".help" for more information.
+
+> const MyToken = await ethers.getContractFactory("Proger");
+undefined
+> const myToken = await MyToken.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3");
+undefined
+> const [owner] = await ethers.getSigners();
+undefined
+> let balance = await myToken.balanceOf(owner.address)
+undefined
+> console.log(balance.toString());
+1000000000000000000000000
+ const [_, recipient] = await ethers.getSigners();
+undefined
+> await myToken.transfer(recipient.address, 500);
+ContractTransactionResponse {
+  provider: HardhatEthersProvider {
+    _hardhatProvider: LazyInitializationProviderAdapter {
+      _providerFactory: [AsyncFunction (anonymous)],
+      _emitter: [EventEmitter],
+      _initializingPromise: [Promise],
+      provider: [BackwardsCompatibilityProviderAdapter]
+    },
+    _networkName: 'localhost',
+    _blockListeners: [],
+    _transactionHashListeners: Map(0) {},
+    _eventListeners: []
+  },
+  blockNumber: 2,
+  blockHash: '0x95a791847a4b69b77a0da413750cfb47178b9281226d64a9bc020798bd799647',
+  index: undefined,
+  hash: '0x9fba4d25b59e42ee1f6b54806c5cdf4f794380c0dab26a16176757a5e2a7b3ec',
+  type: 2,
+  to: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
+  from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+  nonce: 1,
+  gasLimit: 16777216n,
+  gasPrice: 1769178281n,
+  maxPriorityFeePerGas: 1000000000n,
+  maxFeePerGas: 1973491261n,
+  maxFeePerBlobGas: null,
+  data: '0xa9059cbb00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c800000000000000000000000000000000000000000000000000000000000001f4',
+  value: 0n,
+  chainId: 31337n,
+  signature: Signature { r: 0xca3689f4b270457eec34dd9a92958ff11033ef7244a19f845657317bd62450c3, s: 0x7077a4add2656f658d732578152d6ec61b20241b9105d409530e42884eb2a734, v: 28 },
+  accessList: [],
+  blobVersionedHashes: null,
+  authorizationList: null
+}
+
+let newBalance = await myToken.balanceOf(recipient.address);
+undefined
+> console.log(newBalance.toString());
+500
+undefined
+```
+
+## Create web interface
+
+```bash
+mkdir public
+cd public
+npx create-react-app .
+npm install web3
+```

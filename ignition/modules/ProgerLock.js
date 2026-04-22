@@ -19,6 +19,6 @@ const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
 
 module.exports = buildModule("ItModule", (m) => {
   const initialSupply = m.getParameter("initialSupply", 1000000);
-  const myToken = m.contract("itContract", [initialSupply], {});
+  const myToken = m.contract("Proger", [initialSupply], {});
   return {myToken};
 });
