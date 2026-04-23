@@ -463,3 +463,60 @@ cd public
 npx create-react-app .
 npm install web3
 ```
+
+In `public/src` folder create file `Proger.json`,
+put here field `abi` from `artifacts/contracts/Proger.sol/Proger.json`
+
+In `public/src` folder create file `Proger.js`, put here:
+```js
+import abi from './Proger.json'
+
+const Proger = {
+  abi: abi,
+  networks: {
+    '31337': {
+      address: '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+    }
+  }
+}
+
+export default Proger;
+```
+
+where `0x5FbDB2315678afecb367f032d93F642f64180aa3` taken from output of command
+`npx hardhat ignition deploy ./ignition/modules/ProgerLock.js --network localhost`
+
+
+В метамаск нужно отключить все сети кроме нашей локальной
+
+
+## Deploy coin to external network
+Infura
+
+www.infura.io
+входим через google
+попадаем сюда
+https://developer.metamask.io/
+api key: a25db8ba364f4d44adbb2721a7e04de0
+https://mainnet.infura.io/v3/a25db8ba364f4d44adbb2721a7e04de0
+
+```bash
+
+npx hardhat ignition deploy ./ignition/modules/ProgerLock.js --network mainnet
+◇ injected env (1) from .env // tip: ⌘ override existing { override: true }
+✔ Confirm deploy to network mainnet (1)? … no
+Deploy cancelled
+user1@kuzovkov-pc:~/projects/soliditylearn$ npx hardhat ignition deploy ./ignition/modules/ProgerLock.js --network mainnet
+◇ injected env (1) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+✔ Confirm deploy to network mainnet (1)? … yes
+Hardhat Ignition 🚀
+
+Deploying [ ItModule ]
+
+Batch #1
+  Executing ItModule#Proger...
+
+Error in plugin hardhat-ignition: IGN408: Account 0xa68c2ec12394d6b123a5cf6b14bede51794ff434 has insufficient funds to transfer 0 wei
+
+For more info run Hardhat with --show-stack-traces
+```

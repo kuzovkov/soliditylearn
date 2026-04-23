@@ -1,4 +1,3 @@
-import { networks } from '../../hardhat.config.cjs'
 import abi from './Proger.json'
 
 const Proger = {
